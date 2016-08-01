@@ -9,31 +9,75 @@ MongoClient.connect(url, function(err,db){
 	db.close();
 });
 
-
 var mongoose = require ('mongoose');
 var Schema = mongoose.Schema;
 
-var address = new Schema({street1: string, street2: string, street3: string, city: string, state: string, zipcode: string});
-
-var contact = new Schema({name: string, relationship: string, phone: string});
-var doctor = new Schema({name: string, practice: string, address: address, phone: string, fax: string, portal: string});
-var refill = new Schema({date: Date, dosage: string, count: string});
-var pharmacy = new Schema({name: string, workAddress: address, phone: string: fax: string})
-
-var patient = new Schema({name: string, homeAddres: address, phone: string, sms: boolean, email: string, emergencyContact: contact});
-
 var PrescriptionSchema = new Schema({
-	name: string,
-  genericName: string,
-  mechanism: string,
-  prescribedFor: string,
+	name: String,
+  genericName: String,
+  mechanism: String,
+  prescribedFor: String,
   start: Date,
-  prescription_id: string,
-  doctorInfo: doctor,
-  refills: refill[],
-  pharmacyInfo: pharmacy,
-  patientInfo: patient,
-  emergencyContact: contact,
+  prescription_id: String,
+  doctorInfo: {
+    name: String,
+    practice: String,
+    address: {
+      street: [String],
+      city: String,
+      state: String,
+      county: String,
+      zipcode: String,
+      zipcode4: String           
+    },
+    phone: String,
+    fax: String,
+    patientPortal: String,
+    email: String,
+    website: String,
+    type: String
+  },
+
+  refills: [{
+    date: Date,
+    dosage: String,
+    count: String
+  }],
+  pharmacyInfo: {
+    name: String,
+    address: {
+      street: [String],
+      city: String,
+      state: String,
+      county: String,
+      zipcode: String,
+      zipcode4: String       
+    },
+    phone: String,
+    fax: String,
+    hours: {
+      open: String,
+      closed: String
+    },
+    pharmicist: String    
+  },
+
+  patientInfo: {
+    name: String, 
+    homeAddres: {
+      street: [String],
+      city: String,
+      state: String,
+      county: String,
+      zipcode: String,
+      zipcode4: String       
+    }, 
+    phone: String, 
+    sms: Boolean, 
+    email: String, 
+    emergencyContact: [{name: String, relationship: String, phone: String}]
+  },
 });
 
-module.exports = mongoose.model('Prescription', PrescriptionSchema);
+
+
