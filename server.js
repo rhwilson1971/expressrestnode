@@ -42,6 +42,24 @@ router.get('/', function(req, res) {
 });
 
 // more routes for our API will happen here
+router.route('/prescription')
+
+	.post(function(req, res){
+		
+		var script = new Prescription();
+		script.name = req.body.name;
+
+
+		script.save(function(err){
+			if(err)
+				res.send(err);
+
+			res.json({message: 'Script created'});
+		});
+
+
+	});
+
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
