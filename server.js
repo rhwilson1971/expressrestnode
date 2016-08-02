@@ -38,6 +38,10 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
+
+// on routes that end in /prescriptions
+// ----------------------------------------------------
+
 // more routes for our API will happen here
 router.route('/prescription')
 
@@ -54,7 +58,16 @@ router.route('/prescription')
 				res.send(err);
 
 			res.json({message: 'Script created'});
-		});
+		})
+
+		.get(function(req, res) {
+        	Prescription.find(function(err, scripts) {
+            if (err)
+                res.send(err);
+
+            res.json(scripts);
+        });
+    });
 
 
 	});
