@@ -6,10 +6,7 @@
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/hibiscus-test');
 
-
-var Prescription = require('models/prescription.js');
-
-
+var Prescription = require('./models/prescription.js');
 
 
 // call the packages we need
@@ -50,7 +47,7 @@ router.route('/prescription')
 
 		script.name = req.body.name;
 		script.genericName = req.body.genericname;
-		script.
+		// script.
 
 		script.save(function(err){
 			if(err)
@@ -63,6 +60,17 @@ router.route('/prescription')
 	});
 
 
+router.route('/prescription/:prescription_id')
+
+	// get the script with that id (accessed at GET http://localhost:8085/api/bears/bear_id)
+	.get(function(req, res){
+		Prescription.findById(res.params.bear_id, function(err, script){
+			if(err)
+				res.send(err);
+			res.json(script);
+		})
+	})
+	
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
@@ -71,3 +79,7 @@ app.use('/api', router);
 // =============================================================================
 app.listen(port);
 console.log('API listening on port: ' + port);
+
+
+
+
