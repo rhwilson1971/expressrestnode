@@ -1,0 +1,9 @@
+#npm debugging logs
+npm-debug.log*
+
+#project depedencies
+node_modules
+
+#temporary files
+*.tmp
+*~
