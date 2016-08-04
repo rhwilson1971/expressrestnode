@@ -43,13 +43,13 @@ router.get('/', function(req, res) {
 // ----------------------------------------------------
 
 // more routes for our API will happen here
-router.route('/prescription')
+router.route('/prescriptions')
 
 	.post(function(req, res){
 		
 		var script = new Prescription();
 
-		script.name = req.body.name;
+		script.scriptName = req.body.name;
 		script.genericName = req.body.genericname;
 		// script.
 
@@ -58,31 +58,29 @@ router.route('/prescription')
 				res.send(err);
 
 			res.json({message: 'Script created'});
-		})
-
-		.get(function(req, res) {
-        	Prescription.find(function(err, scripts) {
-            if (err)
-                res.send(err);
-
-            res.json(scripts);
-        });
-    });
-
-
-	});
-
-
-router.route('/prescription/:prescription_id')
-
-	// get the script with that id (accessed at GET http://localhost:8085/api/bears/bear_id)
-	.get(function(req, res){
-		Prescription.findById(res.params.bear_id, function(err, script){
-			if(err)
-				res.send(err);
-			res.json(script);
-		})
+		});
 	})
+
+	.get(function(req, res) {
+		Prescription.find(function(err, scripts) {
+    		if (err)
+        		res.send(err);
+
+    		res.json(scripts);
+    	});
+ 	});
+
+
+// router.route('/prescription/:prescription_id')
+
+// 	// get the script with that id (accessed at GET http://localhost:8085/api/bears/bear_id)
+// 	.get(function(req, res){
+// 		Prescription.findById(res.params.bear_id, function(err, script){
+// 			if(err)
+// 				res.send(err);
+// 			res.json(script);
+// 		})
+// 	})
 	
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api

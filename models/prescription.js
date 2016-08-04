@@ -13,7 +13,7 @@ var mongoose = require ('mongoose');
 var Schema = mongoose.Schema;
 
 var PrescriptionSchema = new Schema({
-	name: String,
+	scriptName: String,
   genericName: String,
   mechanism: String,
   prescribedFor: String,
