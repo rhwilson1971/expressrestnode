@@ -49,8 +49,11 @@ router.route('/prescriptions')
 		
 		var script = new Prescription();
 
-		script.scriptName = req.body.name;
+		script.scriptName = req.body.scriptname;
 		script.genericName = req.body.genericname;
+
+		console.log(req.body.scriptname);
+		console.log(req.body.genericname);
 		// script.
 
 		script.save(function(err){
