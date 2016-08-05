@@ -1,0 +1,141 @@
+<!doctype html>
+
+<html>
+
+<head>
+
+<!-- this script got from www.javascriptfreecode.com-Coded by: Krishna Eydat -->
+<!-- START OF Mouse Cursor Text Trailer DHTML -->
+
+
+<!-- SUMMARY BRIEF
+
+	This DHTML script will make a text message follow
+	your cursor around the screen. You can change the
+	message to say whatever you want.
+
+	You can change the font face, color and size in
+	the .trailersytle tag below. You can change the message
+	in the javascript below that. Just look for the 
+	comment that says "Insert your personal message below."
+
+-->
+
+
+<!-- Put this portion of the script inside of your <HEAD> tag -->
+
+<style>
+.trailerstyle {
+	position: absolute;
+	visibility: visible;
+	top: -50px;
+	font-size: 12px;
+	font-family: Arial,Helvetica,Verdana;
+      	font-weight: bold;
+	color: #000000;
+}
+</style>
+
+<script>
+<!--
+
+var x,y
+var step=20
+var flag=0
+
+// Insert your personal message below.
+// Important: Do NOT remove the space at the end of the sentence!!!
+
+var message=" www.javascriptfreecode.com "
+message=message.split("")
+
+var xpos=new Array()
+for (i=0;i<=message.length-1;i++) {
+	xpos[i]=-50
+}
+
+var ypos=new Array()
+for (i=0;i<=message.length-1;i++) {
+	ypos[i]=-50
+}
+
+function handlerMM(e){
+	x = (document.layers) ? e.pageX : document.body.scrollLeft+event.clientX
+	y = (document.layers) ? e.pageY : document.body.scrollTop+event.clientY
+	flag=1
+}
+
+function mousetrailer() {
+	if (flag==1 && document.all) {
+    	for (i=message.length-1; i>=1; i--) {
+   			xpos[i]=xpos[i-1]+step
+			ypos[i]=ypos[i-1]
+    	}
+		xpos[0]=x+step
+		ypos[0]=y
+	
+		for (i=0; i<message.length-1; i++) {
+    		var thisspan = eval("span"+(i)+".style")
+    		thisspan.posLeft=xpos[i]
+			thisspan.posTop=ypos[i]
+    	}
+	}
+	
+	else if (flag==1 && document.layers) {
+    	for (i=message.length-1; i>=1; i--) {
+   			xpos[i]=xpos[i-1]+step
+			ypos[i]=ypos[i-1]
+    	}
+		xpos[0]=x+step
+		ypos[0]=y
+	
+		for (i=0; i<message.length-1; i++) {
+    		var thisspan = eval("document.span"+i)
+    		thisspan.left=xpos[i]
+			thisspan.top=ypos[i]
+    	}
+	}
+		var timer=setTimeout("mousetrailer()",30)
+}
+
+//-->
+</script>
+</head>
+
+<!-- Put this code inside of your <BODY> tag. -->
+
+
+
+
+
+<!-- Lastly, insert the following into the <BODY> tag, itself, just like the example that follows. -->
+
+<body onLoad="mousetrailer()" style="width:100%;overflow-x:hidden;overflow-y:scroll">
+<script>
+<!--
+
+	for (i=0;i<=message.length-1;i++) {
+	    document.write("<span id='span"+i+"' class='trailerstyle'>")
+		document.write(message[i])
+	    document.write("</span>")
+	}
+
+	if (document.layers){
+		document.captureEvents(Event.MOUSEMOVE);
+	}
+	document.onmousemove = handlerMM;
+
+//-->
+</script>
+
+<!-- END OF Mouse Cursor Text Trailer DHTML -->
+<font face="Tahoma">
+	<a target="_blank" href="http://www.javascriptfreecode.com/">
+		<span style="font-size: 8pt; text-decoration: none">JavaScript Free Code</span>
+	</a>
+</font>
+
+
+
+</body>
+</html>
