@@ -4,9 +4,9 @@
 // =============================================================================
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/hibiscus-test');
+// mongoose.connect('mongodb://localhost:27017/hibiscus-test');
 
-var Prescription = require('./models/prescription.js');
+// var Prescription = require('./models/prescription.js');
 
 
 // call the packages we need
@@ -25,6 +25,10 @@ var port = process.env.PORT || 8085;        // set our port
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
+
+console.log(__dirname);
+app.use(express.static(__dirname + '/.'));
+
 // middleware for all requests
 router.use(function(req, res, next){
 
@@ -39,39 +43,41 @@ router.get('/', function(req, res) {
 });
 
 
+
+
 // on routes that end in /prescriptions
 // ----------------------------------------------------
 
 // more routes for our API will happen here
-router.route('/prescriptions')
+//router.route('/prescriptions')
 
-	.post(function(req, res){
-		
-		var script = new Prescription();
+//	.post(function(req, res){
 
-		script.scriptName = req.body.scriptname;
-		script.genericName = req.body.genericname;
+//		var script = new Prescription();
 
-		console.log(req.body.scriptname);
-		console.log(req.body.genericname);
-		// script.
+//		script.scriptName = req.body.scriptname;
+//		script.genericName = req.body.genericname;
 
-		script.save(function(err){
-			if(err)
-				res.send(err);
+//		console.log(req.body.scriptname);
+//		console.log(req.body.genericname);
 
-			res.json({message: 'Script created'});
-		});
-	})
 
-	.get(function(req, res) {
-		Prescription.find(function(err, scripts) {
-    		if (err)
-        		res.send(err);
+//		script.save(function(err){
+//			if(err)
+//				res.send(err);
 
-    		res.json(scripts);
-    	});
- 	});
+//			res.json({message: 'Script created'});
+//		});
+//	})
+
+//	.get(function(req, res) {
+//		Prescription.find(function(err, scripts) {
+//  		if (err)
+//    		res.send(err);
+
+//    		res.json(scripts);
+//  	});
+// 	});
 
 
 // router.route('/prescription/:prescription_id')
