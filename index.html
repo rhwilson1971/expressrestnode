@@ -7,176 +7,186 @@
         <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
-		<style>
-			body {
-				width: 100%;
-				height: 100%;
-				position: fixed;
-				background-color: #34495e;
-			}
+        <style>
 
-			.content {
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				height: 160px;
-				overflow:hidden;
+            body, html {
+                height: 100%;
+                margin: 0;
+                font: 400 15px/1.8 "Lato", sans-serif;
+                color: #777;
+            }
 
-				font-family: 'Lato', sans-serif;
-				font-size: 35px;
-				line-height: 40px;
-				color: #ecf0f1;
+            .bgimg-1, .bgimg-2, .bgimg-3 {
+                position: relative;
+                opacity: 0.65;
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
 
-			&__container {
-				 font-weight: 600;
-				 overflow: hidden;
-				 height: 40px;
-				 padding: 0 40px;
+            }
+            .bgimg-1 {
+                background-image: url("img_parallax.jpg");
+                min-height: 100%;
+            }
 
-			&:before {
-				 content: '[';
-				 left: 0;
-			 }
+            .bgimg-2 {
+                background-image: url("img_parallax2.jpg");
+                min-height: 400px;
+            }
 
-			&:after {
-				 content: ']';
-				 position: absolute;
-				 right: 0;
-			 }
+            .bgimg-3 {
+                background-image: url("img_parallax3.jpg");
+                min-height: 400px;
+            }
 
-			&:after, &:before {
-						  position: absolute;
-						  top: 0;
+            .caption {
+                position: absolute;
+                left: 0;
+                top: 50%;
+                width: 100%;
+                text-align: center;
+                color: #000;
+            }
 
-						  color: #16a085;
-						  font-size: 42px;
-						  line-height: 40px;
+            .caption span.border {
+                background-color: #111;
+                color: #fff;
+                padding: 18px;
+                font-size: 25px;
+                letter-spacing: 10px;
+            }
 
-						  -webkit-animation-name: opacity;
-						  -webkit-animation-duration: 2s;
-						  -webkit-animation-iteration-count: infinite;
-						  animation-name: opacity;
-						  animation-duration: 2s;
-						  animation-iteration-count: infinite;
-					  }
+            h3 {
+                letter-spacing: 5px;
+                text-transform: uppercase;
+                font: 20px "Lato", sans-serif;
+                color: #111;
+            }
 
-			&__text {
-				 display: inline;
-				 float: left;
-				 margin: 0;
-			 }
+            /* Turn off parallax scrolling for tablets and phones */
+            @media only screen and (max-device-width: 1024px) {
+                .bgimg-1, .bgimg-2, .bgimg-3 {
+                    background-attachment: scroll;
+                }
+            }
 
-			&__list {
-				 margin-top: 0;
-				 padding-left: 110px;
-				 text-align: left;
-				 list-style: none;
 
-				 -webkit-animation-name: change;
-				 -webkit-animation-duration: 10s;
-				 -webkit-animation-iteration-count: infinite;
-				 animation-name: change;
-				 animation-duration: 10s;
-				 animation-iteration-count: infinite;
+            .topnav {
+                background-color: #333333;
+                overflow: hidden;
+            }
 
-			&__item {
-				 line-height:40px;
-				 margin:0;
-			 }
-			}
-			}
-			}
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
 
-			@-webkit-keyframes opacity {
-				0%, 100% {opacity:0;}
-				50% {opacity:1;}
-			}
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
 
-			@-webkit-keyframes change {
-				0%, 12.66%, 100% {transform:translate3d(0,0,0);}
-				16.66%, 29.32% {transform:translate3d(0,-25%,0);}
-				33.32%,45.98% {transform:translate3d(0,-50%,0);}
-				49.98%,62.64% {transform:translate3d(0,-75%,0);}
-				66.64%,79.3% {transform:translate3d(0,-50%,0);}
-				83.3%,95.96% {transform:translate3d(0,-25%,0);}
-			}
+            .topnav .icon {
+                display: none;
+            }
 
-			@-o-keyframes opacity {
-				0%, 100% {opacity:0;}
-				50% {opacity:1;}
-			}
+            @media screen and (max-width: 600px) {
+                .topnav a:not(:first-child) {display: none;}
+                .topnav a.icon {
+                    float: right;
+                    display: block;
+                }
+            }
 
-			@-o-keyframes change {
-				0%, 12.66%, 100% {transform:translate3d(0,0,0);}
-				16.66%, 29.32% {transform:translate3d(0,-25%,0);}
-				33.32%,45.98% {transform:translate3d(0,-50%,0);}
-				49.98%,62.64% {transform:translate3d(0,-75%,0);}
-				66.64%,79.3% {transform:translate3d(0,-50%,0);}
-				83.3%,95.96% {transform:translate3d(0,-25%,0);}
-			}
+            @media screen and (max-width: 600px) {
+                .topnav.responsive {position: relative;}
+                .topnav.responsive a.icon {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
+                .topnav.responsive a {
+                    float: none;
+                    display: block;
+                    text-align: left;
+                }
+            }
 
-			@-moz-keyframes opacity {
-				0%, 100% {opacity:0;}
-				50% {opacity:1;}
-			}
-
-			@-moz-keyframes change {
-				0%, 12.66%, 100% {transform:translate3d(0,0,0);}
-				16.66%, 29.32% {transform:translate3d(0,-25%,0);}
-				33.32%,45.98% {transform:translate3d(0,-50%,0);}
-				49.98%,62.64% {transform:translate3d(0,-75%,0);}
-				66.64%,79.3% {transform:translate3d(0,-50%,0);}
-				83.3%,95.96% {transform:translate3d(0,-25%,0);}
-			}
-
-			@keyframes opacity {
-				0%, 100% {opacity:0;}
-				50% {opacity:1;}
-			}
-
-			@keyframes change {
-				0%, 12.66%, 100% {transform:translate3d(0,0,0);}
-				16.66%, 29.32% {transform:translate3d(0,-25%,0);}
-				33.32%,45.98% {transform:translate3d(0,-50%,0);}
-				49.98%,62.64% {transform:translate3d(0,-75%,0);}
-				66.64%,79.3% {transform:translate3d(0,-50%,0);}
-				83.3%,95.96% {transform:translate3d(0,-25%,0);}
-			}
-
-			/*
-			// 6 is the number of animation.
-			// Here, there are 4 lines :
-
-			// 1 to 2
-			// 2 to 3
-			// 3 to 4
-			// 4 to 3
-			// 3 to 2
-			// 2 to 1
-
-			// 6x + 6y = 100 (100% duration)
-
-			// HERE :
-			// y = 4 -> Animation between two lines
-			// x = 12.66 -> Time spent on a line
-
-			// You can define a value and calculate the other if you want change speed or the number of lines
-			*/
-		</style>
-
+        </style>
 
 	</head>
 
-
-
-
 	<body>
 
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+
+	<nav class="topnav" id="myTopnav">
+        <a href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+    </nav>
+
+    <div class="bgimg-1">
+        <div class="caption">
+            <span class="border">SCROLL DOWN</span>
+        </div>
+    </div>
+
+    <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+        <h3 style="text-align:center;">Parallax Demo</h3>
+        <p>Parallax scrolling is a web site trend where the background content is moved at a different speed than the foreground content while scrolling. Nascetur per nec posuere turpis, lectus nec libero turpis nunc at, sed posuere mollis ullamcorper libero ante lectus, blandit pellentesque a, magna turpis est sapien duis blandit dignissim. Viverra interdum mi magna mi, morbi sociis. Condimentum dui ipsum consequat morbi, curabitur aliquam pede, nullam vitae eu placerat eget et vehicula. Varius quisque non molestie dolor, nunc nisl dapibus vestibulum at, sodales tincidunt mauris ullamcorper, dapibus pulvinar, in in neque risus odio. Accumsan fringilla vulputate at quibusdam sociis eleifend, aenean maecenas vulputate, non id vehicula lorem mattis, ratione interdum sociis ornare. Suscipit proin magna cras vel, non sit platea sit, maecenas ante augue etiam maecenas, porta porttitor placerat leo.</p>
+    </div>
+
+    <div class="bgimg-2">
+        <div class="caption">
+            <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">LESS HEIGHT</span>
+        </div>
+    </div>
+
+    <div style="position:relative;">
+        <div style="color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;text-align: justify;">
+            <p>Scroll up and down to really get the feeling of how Parallax Scrolling works.</p>
+        </div>
+    </div>
+
+    <div class="bgimg-3">
+        <div class="caption">
+            <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">SCROLL UP</span>
+        </div>
+    </div>
+
+    <div style="position:relative;">
+        <div style="color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;text-align: justify;">
+            <p>Scroll up and down to really get the feeling of how Parallax Scrolling works.</p>
+        </div>
+    </div>
+
+    <div class="bgimg-1">
+        <div class="caption">
+            <span class="border">COOL!</span>
+        </div>
+    </div>
 
 
 
-	<div class="content" style="display: none">
+    <div class="content">
 		<div class="content__container">
 			<p class="content__container__text">
 				Hello
