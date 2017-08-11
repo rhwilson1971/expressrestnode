@@ -3,23 +3,11 @@ mongoose=require('mongoose');
 var Schema = mongoose.Schema;
 
 var goalSchema = new Schema({
-        first_name: { type: String, required: true },
-        last_name: String,
-        contact_type: { type: String, require: true },
-        address: {
-            street1: String,
-            street2: String,
-            street3: String,
-            city: String,
-            state: String,
-            zip: String
-        },
+        name: { type: String, required: true },
         description: String,
-        phone_number: { type: String, required: true },
-        email: String,
+        frequency: {type: Schema.Types.ObjectId},
         active: {type: Boolean, default: true},
-        dateCreated: {type: Date, default: Date.now},
-        notes: String
+        dateCreated: {type: Date, default: Date.now}
     }
 );
 
@@ -46,23 +34,9 @@ module.exports.updateGoal = function(id, goal, options, callback) {
     var query = {_id: id};
 
     var update = {
-        first_name: contact.first_name,
-        last_name: contact.last_name,
-        contact_type: contact.contact_type,
-        address : {
-            street1: contact.address.street1,
-            street2: contact.address.street2,
-            street3: contact.address.street3,
-            city: contact.address.city,
-            state: contact.address.state,
-            zip: contact.address.zip
-        },
-        description: contact.description,
-        active: contact.active,
-
-        phone_number: contact.phone_number,
-        email: contact.email,
-        notes: contact.notes
+        name: contact.first_name,
+        description: contact.last_name,
+        goal_type: contact.contact_type
     };
 
     Contact.findOneAndUpdate(query, update, options, callback);
