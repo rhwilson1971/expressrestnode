@@ -4,10 +4,9 @@
 // =============================================================================
 
 var mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost:27017/hibiscus-test');
+mongoose.connect('mongodb://localhost:27017/stopitstartit-db');
 
-// var Prescription = require('./models/prescription.js');
-
+var Goal = require('./models/goal.js');
 
 // call the packages we need
 var express    = require('express');        // call express
@@ -42,55 +41,62 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
 
-
-
-
-// on routes that end in /prescriptions
+// on routes that end in /goals
 // ----------------------------------------------------
 
 // more routes for our API will happen here
-//router.route('/prescriptions')
+router.route('/goals')
 
-//	.post(function(req, res){
+	.post(function(req, res){
+		var goal = new Goal();
 
-//		var script = new Prescription();
+		goal.name = req.body.name;
+		goal.description = req.body.description;
 
-//		script.scriptName = req.body.scriptname;
-//		script.genericName = req.body.genericname;
+		console.log(req.body.scriptname);
+		console.log(req.body.genericname);
 
-//		console.log(req.body.scriptname);
-//		console.log(req.body.genericname);
+		Goal.save(function(err){
+			if(err)
+				res.send(err);
 
+			res.json({message: 'Goal created'});
+		});
+	})
 
-//		script.save(function(err){
-//			if(err)
-//				res.send(err);
+	.get(function(req, res) {
+		Goal.getGoalAllGoals( function(err, goals) {
+  			if (err)
+    			res.send(err);
 
-//			res.json({message: 'Script created'});
-//		});
-//	})
+    		res.json(goals);
+  		});
+ 	});
 
-//	.get(function(req, res) {
-//		Prescription.find(function(err, scripts) {
-//  		if (err)
-//    		res.send(err);
+router.route('/goal/:_id')
 
-//    		res.json(scripts);
-//  	});
-// 	});
+// get the goal with that id (accessed at GET http://localhost:xxxx/api/goal/goal_id)
+ 	.get(function(req, res){
+ 		Goal.getGoalById(res.params._id, function(err, goal){
+ 			if(err)
+ 				res.send(err);
+ 			res.json(goal);
+ 		})
+ 	})
 
+	.put(function(req, res){
 
-// router.route('/prescription/:prescription_id')
+		var id = req.params._id;
+		var goal = req.body;
 
-// 	// get the script with that id (accessed at GET http://localhost:8085/api/bears/bear_id)
-// 	.get(function(req, res){
-// 		Prescription.findById(res.params.bear_id, function(err, script){
-// 			if(err)
-// 				res.send(err);
-// 			res.json(script);
-// 		})
-// 	})
-	
+		Goal.updateGoal(id, goal, {}, function(err, goal){
+			if(err)
+				throw err;
+
+			req.json(goal);
+		});
+	});
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
@@ -98,8 +104,4 @@ app.use('/api', router);
 // START THE SERVER
 // =============================================================================
 app.listen(port);
-console.log('API listening on port: ' + port);
-
-
-
-
+console.log('Goals API is listening on port: ' + port);
