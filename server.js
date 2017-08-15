@@ -74,8 +74,7 @@ router.route('/goals')
  	});
 
 router.route('/goal/:_id')
-
-// get the goal with that id (accessed at GET http://localhost:xxxx/api/goal/goal_id)
+	// get the goal with that id (accessed at GET http://localhost:xxxx/api/goal/goal_id)
  	.get(function(req, res){
  		Goal.getGoalById(res.params._id, function(err, goal){
  			if(err)
@@ -105,3 +104,4 @@ app.use('/api', router);
 // =============================================================================
 app.listen(port);
 console.log('Goals API is listening on port: ' + port);
+
