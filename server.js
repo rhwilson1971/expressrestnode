@@ -65,7 +65,7 @@ router.route('/goals')
 	})
 
 	.get(function(req, res) {
-		Goal.getGoalAllGoals( function(err, goals) {
+		Goal.getGoals( function(err, goals) {
   			if (err)
     			res.send(err);
 
