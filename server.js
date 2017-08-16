@@ -52,15 +52,18 @@ router.route('/goals')
 
 		goal.name = req.body.name;
 		goal.description = req.body.description;
+		goal.frequency = req.body.frequency;
+		goal.labels = req.body.labels;
+		goal.goal_type = req.body.goal_type;
 
-		console.log(req.body.scriptname);
-		console.log(req.body.genericname);
+		console.log(req.body.description);
+		console.log(req.body.name);
 
-		Goal.save(function(err){
+		Goal.addGoal(goal, function(err, goal){
 			if(err)
 				res.send(err);
 
-			res.json({message: 'Goal created'});
+			res.json(goal);
 		});
 	})
 

@@ -8,7 +8,8 @@ var goalSchema = new Schema({
         frequency: [{type: String}],
         active: {type: Boolean, default: true},
         labels: [{type: String}],
-        dateCreated: {type: Date, default: Date.now}
+        dateCreated: {type: Date, default: Date.now},
+        dateUpdated: {type: Date}
     });
 
 var Goal=module.exports=mongoose.model('Goal', goalSchema);
@@ -40,6 +41,8 @@ module.exports.updateGoal = function(id, goal, options, callback) {
         labels: goal.labels,
         goal_type: goal.goal_type
     };
+
+    update.dateUpdated = Date.now();
 
     Goal.findOneAndUpdate(query, update, options, callback);
 };
