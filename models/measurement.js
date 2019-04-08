@@ -17,10 +17,10 @@ var Schema = mongoose.Schema;
 */
 
 var mearurementSchema = new Schema({
-        measurement: { type: Decimal128, required: true },
-        measureUnit: {type: String},
+        amount: { type: Decimal128, required: true },
+        unit: {type: String},
         measureType: {type: String},
-        recordDate: {type: Date},
+        dateRecorded: {type: Date},
         dateCreated: {type: Date, default: Date.now},
         dateUpdated: {type: Date}
     });
@@ -47,9 +47,9 @@ module.exports.updateMeasurement = function(id, measurement, options, callback) 
     var query = {_id: id};
 
     var update = {
-        name: measurement.name,
-        description: measurement.description,
-        aerobic: mearurement.aerobic
+        amount: measurement.amount,
+        unit: measurement.unit,
+        dateRecorded: mearurement.dateRecorded
     };
 
     update.dateUpdated = Date.now();

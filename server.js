@@ -30,13 +30,12 @@ app.use(express.static(__dirname + '/.'));
 
 // middleware for all requests
 router.use(function(req, res, next){
-
-	console.log('Something is happening');
+	console.log('Soething is happening');
 	next();
 });
 
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+// test route to make sure everything is working (accessed at GET http://localhost:8085/api)
 router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });   
 });
@@ -96,6 +95,37 @@ router.route('/goal/:_id')
 				throw err;
 
 			req.json(goal);
+		});
+	});
+
+
+
+router.route('/measurements')	
+	.post(function(req, res){
+		var measurement = new Measurement();
+
+		measurement.amount = req.body.amount;
+		measurement.description = req.body.unit;
+		measurement.measureType = req.body.measureType;
+		measurement.dateRecorded = req.body.dateReorded;
+
+		console.log(req.body.amount);
+		console.log(req.body.measureType);
+
+		Goal.addGoal(goal, function(err, goal){
+			if(err)
+				res.send(err);
+
+			res.json(goal);
+		});
+	})
+
+	.get(function(req, res) {
+		Goal.getGoals( function(err, goals) {
+			if (err)
+				res.send(err);
+
+			res.json(goals);
 		});
 	});
 
