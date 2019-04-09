@@ -2,8 +2,6 @@
 
 // BASE SETUP
 // =============================================================================
-require('handlebars')
-
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/stopitstartit-db');
 
@@ -13,11 +11,18 @@ var Goal = require('./models/goal.js');
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
+var hbs = require('express-handlebars');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Handlebars setup
+app.engine('handlebars', hbs({defaultLayout: 'main'}));
+
+app.set('view engine', 'handlebars');
+
 
 var port = process.env.PORT || 8085;        // set our port
 
@@ -31,14 +36,15 @@ app.use(express.static(__dirname + '/.'));
 
 // middleware for all requests
 router.use(function(req, res, next){
-	console.log('Soething is happening');
+	console.log('Something is happening');
 	next();
 });
 
 
 // test route to make sure everything is working (accessed at GET http://localhost:8085/api)
-router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });   
+router.get('/', function(req, res, next) {
+	// res.json({ message: 'hooray! welcome to our api!' });   
+	res.render('home');
 });
 
 // on routes that end in /goals
