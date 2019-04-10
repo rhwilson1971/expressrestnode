@@ -3,7 +3,7 @@
 // BASE SETUP
 // =============================================================================
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/stopitstartit-db');
+mongoose.connect('mongodb://localhost:27017/loose-the-gut-db', {useNewUrlParser: true});
 
 var Goal = require('./models/goal.js');
 
@@ -12,6 +12,7 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
+var path = require('path');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -19,10 +20,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Handlebars setup
-app.engine('handlebars', hbs({defaultLayout: 'main'}));
-
-app.set('view engine', 'handlebars');
-
+app.engine('hbs', hbs({
+	extname: 'hbs',
+	defaultLayout: 'main',
+	layoutsDir: __dirname +'/views/layouts'
+	}));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
 var port = process.env.PORT || 8085;        // set our port
 
@@ -30,9 +34,13 @@ var port = process.env.PORT || 8085;        // set our port
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
+app.get('/', function (req, res) {
+	console.log('trying to get');    
+	res.render('home', {title: "This is the Newsh", conditionVar: true, newArray: [18, 9, 3, 8] });
+});
+// console.log(__dirname);
 
-console.log(__dirname);
-app.use(express.static(__dirname + '/.'));
+app.use(express.static(__dirname + '/public'));
 
 // middleware for all requests
 router.use(function(req, res, next){
@@ -42,10 +50,7 @@ router.use(function(req, res, next){
 
 
 // test route to make sure everything is working (accessed at GET http://localhost:8085/api)
-router.get('/', function(req, res, next) {
-	// res.json({ message: 'hooray! welcome to our api!' });   
-	res.render('home');
-});
+
 
 // on routes that end in /goals
 // ----------------------------------------------------

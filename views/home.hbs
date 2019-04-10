@@ -1,0 +1,22 @@
+<h1>Example App: Home</h1>
+
+<p> {{ title }} </p>
+
+
+{{# if conditionVar }}
+    Sup
+{{else}}
+    Pus
+{{/if}}
+
+<ul>
+    {{# each newArray }}
+        <li>{{this}}</li>
+    {{/each}}
+</ul>
+
+<ul>
+    {{# each newArray as |val key| }}
+        <li>Val is {{val}}, along with key {{key}}</li>
+    {{/each}}
+</ul>
