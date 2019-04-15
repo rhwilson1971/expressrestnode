@@ -47,10 +47,7 @@ router.use(function(req, res, next){
 	console.log('Something is happening');
 	next();
 });
-
-
 // test route to make sure everything is working (accessed at GET http://localhost:8085/api)
-
 
 // on routes that end in /goals
 // ----------------------------------------------------
